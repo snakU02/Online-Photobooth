@@ -1,0 +1,4 @@
+{
+  "/api/signal/[action]/route": "app/api/signal/[action]/route.js",
+  "/page": "app/page.js"
+}
