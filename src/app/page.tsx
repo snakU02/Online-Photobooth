@@ -122,7 +122,7 @@ export default function Home() {
                 <Sparkles className="w-3.5 h-3.5 text-pink-500" /> DuoSnap Couple Studio
               </div>
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 bg-clip-text text-transparent leading-tight">
-                Romantic Couple Photobooth
+                "Para sa prinsesa ko na si Princess Saldua"
               </h1>
               <p className="text-stone-600 text-sm max-w-md mx-auto font-medium">
                 Pick a theme, snap cute poses — together in the same room or from different locations worldwide!
@@ -150,7 +150,7 @@ export default function Home() {
                   <Users className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="font-bold text-stone-900 text-base flex items-center gap-2">
-                  Remote Couple 
+                  Remote Couple
                   <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold border border-purple-200">New</span>
                 </h3>
                 <p className="text-xs text-stone-500 mt-1 leading-relaxed">Each person on their own device — cameras appear side-by-side!</p>
