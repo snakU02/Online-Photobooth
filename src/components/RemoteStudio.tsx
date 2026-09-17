@@ -322,24 +322,22 @@ export default function RemoteStudio({
             </div>
 
             {/* Remote Video (right half, shown when connected) */}
-            {remoteConnected && (
-              <div className="absolute right-0 top-0 w-1/2 h-full overflow-hidden peer-ring">
-                <video
-                  ref={remoteVideoRef}
-                  playsInline
-                  muted
-                  className="w-full h-full object-cover"
-                  style={{ filter: activeFilter.css }}
-                />
-                {/* Partner label */}
-                <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/60 text-white text-[10px] px-2 py-1 rounded-lg font-semibold backdrop-blur-sm">
-                  <Heart className="w-3 h-3 text-pink-400 fill-pink-400" />
-                  <span>Partner</span>
-                </div>
-                {/* Divider */}
-                <div className="absolute left-0 inset-y-0 w-px bg-pink-400/80 shadow-[0_0_8px_rgba(244,114,182,0.8)]" />
+            <div className={`absolute right-0 top-0 w-1/2 h-full overflow-hidden peer-ring transition-opacity duration-300 ${remoteConnected ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}`}>
+              <video
+                ref={remoteVideoRef}
+                playsInline
+                muted
+                className="w-full h-full object-cover"
+                style={{ filter: activeFilter.css }}
+              />
+              {/* Partner label */}
+              <div className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/60 text-white text-[10px] px-2 py-1 rounded-lg font-semibold backdrop-blur-sm">
+                <Heart className="w-3 h-3 text-pink-400 fill-pink-400" />
+                <span>Partner</span>
               </div>
-            )}
+              {/* Divider */}
+              <div className="absolute left-0 inset-y-0 w-px bg-pink-400/80 shadow-[0_0_8px_rgba(244,114,182,0.8)]" />
+            </div>
 
             {/* Waiting for partner overlay */}
             {!remoteConnected && (

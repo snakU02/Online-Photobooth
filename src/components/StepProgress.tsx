@@ -45,7 +45,7 @@ export default function StepProgress({ currentStep, onSelectStep, canNavigateTo 
               }`}
             >
               <div
-                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base transition-all duration-300 shadow-md ${
+                className={`w-9 h-9 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-sm sm:text-base transition-all duration-300 shadow-md ${
                   isCompleted
                     ? "bg-rose-500 text-white shadow-rose-300/50 scale-100"
                     : isActive
@@ -53,10 +53,10 @@ export default function StepProgress({ currentStep, onSelectStep, canNavigateTo 
                     : "bg-white text-stone-500 border-2 border-stone-200 shadow-xs hover:border-pink-300 hover:text-pink-600"
                 }`}
               >
-                {isCompleted ? <Check className="w-5 h-5 stroke-[3]" /> : <Icon className="w-5 h-5" />}
+                {isCompleted ? <Check className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3]" /> : <Icon className="w-4 h-4 sm:w-5 sm:h-5" />}
               </div>
               <span
-                className={`text-xs font-semibold text-center transition-colors ${
+                className={`text-[10px] sm:text-xs font-semibold text-center transition-colors max-w-[64px] sm:max-w-none ${
                   isActive ? "text-pink-600 font-bold" : isCompleted ? "text-stone-700" : "text-stone-400"
                 }`}
               >

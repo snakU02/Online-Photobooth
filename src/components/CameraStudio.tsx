@@ -70,6 +70,8 @@ export default function CameraStudio({
     };
   }, [startCamera]);
 
+
+
   // Capture current video frame to Data URL
   const captureFrame = useCallback(() => {
     if (!videoRef.current) return null;
@@ -93,6 +95,8 @@ export default function CameraStudio({
     if (isMirrored) {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
     }
+
+
 
     // Apply canvas filter shader if applicable
     if (activeFilter.canvasFilter) {
@@ -262,6 +266,7 @@ export default function CameraStudio({
               }`}
               style={{ filter: activeFilter.css }}
             />
+
 
             {/* Camera Unavailable Fallback Display */}
             {hasCameraPermission === false && (

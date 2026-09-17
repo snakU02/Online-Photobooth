@@ -43,6 +43,7 @@ export default function StickerDecorator({
 }: StickerDecoratorProps) {
   const theme = THEMES[themeId] || THEMES.korean_pastel;
   const [selectedStickerId, setSelectedStickerId] = useState<string | null>(null);
+  const [draggingId, setDraggingId] = useState<string | null>(null);
 
   // Add new sticker to canvas center with default properties
   const addSticker = (content: string) => {
@@ -70,6 +71,59 @@ export default function StickerDecorator({
     if (selectedStickerId === id) setSelectedStickerId(null);
   };
 
+  const getCanvasDims = () => {
+    let canvasW = 600; let canvasH = 1600;
+    if (layoutId === "2x2_grid") { canvasW = 1000; canvasH = 1200; }
+    else if (layoutId === "polaroid_duo") { canvasW = 800; canvasH = 1100; }
+    else if (layoutId === "6_cut_strip") { canvasW = 1000; canvasH = 1400; }
+    return { canvasW, canvasH };
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    const canvas = e.currentTarget;
+    const rect = canvas.getBoundingClientRect();
+    const px = ((e.clientX - rect.left) / rect.width) * 100;
+    const py = ((e.clientY - rect.top) / rect.height) * 100;
+    const { canvasW, canvasH } = getCanvasDims();
+    const aspectRatio = canvasW / canvasH;
+    
+    // Find highest z-index sticker (last in array) that was clicked
+    for (let i = stickers.length - 1; i >= 0; i--) {
+      const st = stickers[i];
+      const dx = px - st.x;
+      const dy = (py - st.y) / aspectRatio;
+      const distance = Math.hypot(dx, dy);
+      
+      // Hit radius based on canvas size logic
+      if (distance < 6 * st.scale) {
+        setSelectedStickerId(st.id);
+        setDraggingId(st.id);
+        canvas.setPointerCapture(e.pointerId);
+        soundEngine.playPop();
+        return;
+      }
+    }
+    // Clicked empty space
+    setSelectedStickerId(null);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (!draggingId) return;
+    const canvas = e.currentTarget;
+    const rect = canvas.getBoundingClientRect();
+    const px = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+    const py = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+    
+    updateSticker(draggingId, { x: px, y: py });
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    if (draggingId) {
+      setDraggingId(null);
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
   const activeSticker = stickers.find((s) => s.id === selectedStickerId);
 
   return (
@@ -94,6 +148,10 @@ export default function StickerDecorator({
             coupleTitle={coupleTitle}
             dateText={dateText}
             stickers={stickers}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerLeave={handlePointerUp}
           />
         </div>
 
@@ -102,7 +160,7 @@ export default function StickerDecorator({
           {/* Frame Color & Pattern */}
           <div className="bg-white/90 rounded-3xl p-5 border border-pink-100 shadow-md space-y-4">
             <h4 className="font-bold text-stone-900 text-sm flex items-center gap-2">
-              <Palette className="w-4 h-4 text-pink-500" /> Frame Color & Background Pattern
+              <Palette className="w-4 h-4 text-pink-500" /> Frame Color & Pattern
             </h4>
 
             {/* Frame Colors */}
@@ -183,10 +241,10 @@ export default function StickerDecorator({
           {/* Sticker Selector Tray */}
           <div className="bg-white/90 rounded-3xl p-5 border border-pink-100 shadow-md space-y-4">
             <h4 className="font-bold text-stone-900 text-sm flex items-center gap-2">
-              <Sticker className="w-4 h-4 text-pink-500" /> Couple Sticker Tray (Click to Add)
+              <Sticker className="w-4 h-4 text-pink-500" /> Sticker Tray
             </h4>
 
-            <div className="flex flex-wrap gap-2.5 p-3 rounded-2xl bg-pink-50/50 border border-pink-100 max-h-36 overflow-y-auto">
+            <div className="flex flex-wrap gap-2.5 p-3 rounded-2xl bg-pink-50/50 border border-pink-100 max-h-52 overflow-y-auto">
               {theme.stickers.map((st, idx) => (
                 <button
                   key={idx}

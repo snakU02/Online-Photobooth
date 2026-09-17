@@ -1,0 +1,1 @@
+{"c":["app/layout","app/page","webpack"],"r":[],"m":["(app-pages-browser)/./node_modules/@mediapipe/tasks-vision lazy recursive","(app-pages-browser)/./node_modules/@mediapipe/tasks-vision/vision_bundle.mjs","(app-pages-browser)/./src/lib/arFilters.ts","(app-pages-browser)/./src/lib/faceTracking.ts"]}
