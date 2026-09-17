@@ -122,7 +122,7 @@ export default function Home() {
                 <Sparkles className="w-3.5 h-3.5 text-pink-500" /> DuoSnap Couple Studio
               </div>
               <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 bg-clip-text text-transparent leading-tight">
-                "Para sa prinsesa ko na si Princess Saldua"
+                "Romantic Couple Photobooth"
               </h1>
               <p className="text-stone-600 text-sm max-w-md mx-auto font-medium">
                 Pick a theme, snap cute poses — together in the same room or from different locations worldwide!

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import QRCode from "qrcode";
 import confetti from "canvas-confetti";
 import PhotoStripCanvas, { PlacedSticker } from "./PhotoStripCanvas";
@@ -58,7 +58,7 @@ export default function ExportShareModal({
     return () => clearInterval(interval);
   }, [photos]);
 
-  const handleCanvasReady = (canvas: HTMLCanvasElement) => {
+  const handleCanvasReady = useCallback((canvas: HTMLCanvasElement) => {
     setRenderedCanvas(canvas);
     const dataUrl = canvas.toDataURL("image/png", 1.0);
     setPngDataUrl(dataUrl);
@@ -69,7 +69,7 @@ export default function ExportShareModal({
         setQrCodeUrl(url);
       }
     });
-  };
+  }, []);
 
   // HD PNG Download
   const downloadPng = () => {
@@ -79,7 +79,9 @@ export default function ExportShareModal({
     const safeTitle = (coupleTitle || "duosnap_photobooth").toLowerCase().replace(/[^a-z0-9]/g, "_");
     link.download = `${safeTitle}_strip.png`;
     link.href = pngDataUrl;
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   // Launch Print Dialog

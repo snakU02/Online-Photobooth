@@ -24,28 +24,28 @@ export interface StripLayoutOption {
 export const LAYOUT_OPTIONS: StripLayoutOption[] = [
   {
     id: "4_cut_strip",
-    name: "Classic 4-Cut Strip 🎞️",
+    name: "Classic 4-Cut Strip",
     photoCount: 4,
     description: "Traditional vertical photobooth strip with 4 poses",
     previewClass: "flex flex-col gap-1 w-12 h-28 bg-white p-1 rounded-sm border border-stone-300 shadow-xs",
   },
   {
     id: "2x2_grid",
-    name: "2x2 Square Grid 🖼️",
+    name: "2x2 Square Grid",
     photoCount: 4,
     description: "Cute balanced 4-photo square grid layout",
     previewClass: "grid grid-cols-2 gap-1 w-20 h-20 bg-white p-1 rounded-sm border border-stone-300 shadow-xs",
   },
   {
     id: "polaroid_duo",
-    name: "Polaroid Duo 📸",
+    name: "Polaroid Duo",
     photoCount: 2,
     description: "Romantic double-photo classic polaroid snapshot with big bottom space for signatures",
     previewClass: "flex flex-col gap-1 w-20 h-24 bg-white p-1.5 rounded-sm border border-stone-300 shadow-xs pb-5",
   },
   {
     id: "6_cut_strip",
-    name: "Mega 6-Cut Collage 🌟",
+    name: "Mega 6-Cut Collage",
     photoCount: 6,
     description: "6 poses collage for super fun photo sessions",
     previewClass: "grid grid-cols-2 gap-1 w-20 h-26 bg-white p-1 rounded-sm border border-stone-300 shadow-xs",
@@ -78,11 +78,10 @@ export default function ThemeSelector({
                   soundEngine.playPop();
                   onSelectTheme(theme.id);
                 }}
-                className={`group cursor-pointer rounded-2xl p-5 transition-all duration-300 border-2 relative overflow-hidden flex flex-col justify-between ${
-                  isSelected
-                    ? "border-pink-500 ring-4 ring-pink-200/80 shadow-lg scale-[1.02]"
-                    : "border-stone-200 hover:border-pink-300 bg-white/70 hover:bg-white shadow-xs"
-                }`}
+                className={`group cursor-pointer rounded-2xl p-5 transition-all duration-300 border-2 relative overflow-hidden flex flex-col justify-between ${isSelected
+                  ? "border-pink-500 ring-4 ring-pink-200/80 shadow-lg scale-[1.02]"
+                  : "border-stone-200 hover:border-pink-300 bg-white/70 hover:bg-white shadow-xs"
+                  }`}
               >
                 {/* Background Tint */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${theme.bgGradient} opacity-30 group-hover:opacity-40 transition-opacity -z-10`} />
@@ -144,11 +143,10 @@ export default function ThemeSelector({
                   soundEngine.playPop();
                   onSelectLayout(layout.id);
                 }}
-                className={`cursor-pointer rounded-2xl p-4 transition-all duration-200 border-2 flex flex-col items-center text-center justify-between ${
-                  isSelected
-                    ? "border-pink-500 bg-pink-50/60 ring-4 ring-pink-200 shadow-md scale-[1.02]"
-                    : "border-stone-200 bg-white hover:border-pink-300 shadow-xs"
-                }`}
+                className={`cursor-pointer rounded-2xl p-4 transition-all duration-200 border-2 flex flex-col items-center text-center justify-between ${isSelected
+                  ? "border-pink-500 bg-pink-50/60 ring-4 ring-pink-200 shadow-md scale-[1.02]"
+                  : "border-stone-200 bg-white hover:border-pink-300 shadow-xs"
+                  }`}
               >
                 {/* Visual Layout Thumbnail */}
                 <div className="my-3 flex items-center justify-center h-28">

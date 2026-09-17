@@ -49,7 +49,7 @@ export default function CameraStudio({
       });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.play();
+        videoRef.current.play().catch(() => {});
       }
       setHasCameraPermission(true);
     } catch (err) {

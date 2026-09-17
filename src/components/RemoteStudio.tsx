@@ -66,33 +66,33 @@ export default function RemoteStudio({
         }
 
         setHasCameraPermission(true);
-
-        // Initialize WebRTC
-        const rtc = new DuoSnapWebRTC({
-          roomCode,
-          role,
-          onRemoteStream: (stream) => {
-            if (remoteVideoRef.current) {
-              remoteVideoRef.current.srcObject = stream;
-              remoteVideoRef.current.play().catch(() => {});
-            }
-            setRemoteConnected(true);
-            soundEngine.playFanfare();
-          },
-          onStatusChange: (status) => {
-            setConnectionStatus(status);
-            if (status === "connected") setRemoteConnected(true);
-          },
-          onGuestJoined: () => {
-            setConnectionStatus("connecting");
-          },
-        });
-
-        webrtcRef.current = rtc;
-        await rtc.start(localStream);
       } catch {
         setHasCameraPermission(false);
       }
+
+      // Initialize WebRTC
+      const rtc = new DuoSnapWebRTC({
+        roomCode,
+        role,
+        onRemoteStream: (stream) => {
+          if (remoteVideoRef.current) {
+            remoteVideoRef.current.srcObject = stream;
+            remoteVideoRef.current.play().catch(() => {});
+          }
+          setRemoteConnected(true);
+          soundEngine.playFanfare();
+        },
+        onStatusChange: (status) => {
+          setConnectionStatus(status);
+          if (status === "connected") setRemoteConnected(true);
+        },
+        onGuestJoined: () => {
+          setConnectionStatus("connecting");
+        },
+      });
+
+      webrtcRef.current = rtc;
+      await rtc.start(localStream);
     };
 
     init();

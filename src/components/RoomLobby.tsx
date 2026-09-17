@@ -62,7 +62,16 @@ export default function RoomLobby({ onRoomReady, onSkipRemote }: RoomLobbyProps)
   };
 
   const copyInviteLink = () => {
-    navigator.clipboard.writeText(inviteLink);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(inviteLink);
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = inviteLink;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(textArea);
+    }
     setIsCopied(true);
     soundEngine.playPop();
     setTimeout(() => setIsCopied(false), 2000);

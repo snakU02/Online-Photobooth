@@ -129,14 +129,16 @@ export class DuoSnapWebRTC {
     }
   }
 
-  public async start(localStream: MediaStream) {
+  public async start(localStream: MediaStream | null) {
     this.localStream = localStream;
     const pc = this.createPeerConnection();
 
     // Add all local tracks
-    localStream.getTracks().forEach((track) => {
-      pc.addTrack(track, localStream);
-    });
+    if (localStream) {
+      localStream.getTracks().forEach((track) => {
+        pc.addTrack(track, localStream);
+      });
+    }
 
     this.startPolling();
 
